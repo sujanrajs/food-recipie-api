@@ -6,7 +6,8 @@ const Recipie = require("../models/recipieModel");
 // @route GET /api/recipie
 // @access Public
 const getRecipie = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: "Get Recipie" });
+  const recipie = await Recipie.find();
+  res.status(200).json(recipie);
 });
 
 // @desc Create Recipie
