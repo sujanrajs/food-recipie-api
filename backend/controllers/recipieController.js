@@ -14,10 +14,15 @@ const getRecipie = asyncHandler(async (req, res) => {
 // @route POST /api/recipie
 // @access Public
 const createRecipie = asyncHandler(async (req, res) => {
-  if (!req.body.text) {
+  if (!req.body.name) {
     res.status(400);
-    throw new Error("Please add a text");
+    throw new Error("Please add a name");
   }
+
+  const recipie = await Recipie.create({
+    name: req.body.name,
+  });
+
   res.status(200).json({ message: "Create Recipie" });
 });
 

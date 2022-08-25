@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const recipieSchema = mongoose.Schema(
   {
-    text: {
+    name: {
       type: String,
       required: [true, "Please add a text value"],
     },
