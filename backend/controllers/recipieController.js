@@ -30,7 +30,22 @@ const createRecipie = asyncHandler(async (req, res) => {
 // @route PUT /api/recipie
 // @access Public
 const updateRecipie = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Update Recipie ${req.params.id}` });
+  const recipie = await Recipie.findById(req.params.id);
+
+  if (!recipie) {
+    res.status(400);
+    throw new Error("Recipie not found");
+  }
+
+  const updatedRecipie = await Recipie.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
+
+  res.status(200).json(updatedRecipie);
 });
 
 // @desc Delete Recipie
