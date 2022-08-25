@@ -9,6 +9,7 @@ const getRecipie = (req, res) => {
 // @route POST /api/recipie
 // @access Public
 const createRecipie = (req, res) => {
+  console.log(req.body);
   res.status(200).json({ message: "Create Recipie" });
 };
 
