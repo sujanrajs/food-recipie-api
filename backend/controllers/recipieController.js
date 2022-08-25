@@ -52,7 +52,16 @@ const updateRecipie = asyncHandler(async (req, res) => {
 // @route DELETE /api/recipie
 // @access Public
 const deleteRecipie = asyncHandler(async (req, res) => {
-  res.status(200).json({ message: `Delete Recipie ${req.params.id}` });
+  const recipie = await Recipie.findById(req.params.id);
+
+  if (!recipie) {
+    res.status(400);
+    throw new Error("Recipie not found");
+  }
+
+  await recipie.remove();
+
+  res.status(200).json({ id: req.params.id });
 });
 
 module.exports = { getRecipie, createRecipie, updateRecipie, deleteRecipie };
