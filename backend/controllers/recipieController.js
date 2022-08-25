@@ -1,5 +1,7 @@
 const asyncHandler = require("express-async-handler");
 
+const Recipie = require("../models/recipieModel");
+
 // @desc GET Recipie
 // @route GET /api/recipie
 // @access Public
