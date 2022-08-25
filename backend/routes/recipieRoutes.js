@@ -1,20 +1,19 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.status(200).json({ message: "Get Recipie" });
-});
+const {
+  getRecipie,
+  createRecipie,
+  updateRecipie,
+  deleteRecipie,
+} = require("../controllers/recipieController");
 
-router.post("/", (req, res) => {
-  res.status(200).json({ message: "Create Recipie" });
-});
+router.route("/").get(getRecipie).post(createRecipie);
+router.route("/:id").put(updateRecipie).delete(deleteRecipie);
 
-router.put("/:id", (req, res) => {
-  res.status(200).json({ message: `Update Recipie ${req.params.id}` });
-});
-
-router.delete("/:id", (req, res) => {
-  res.status(200).json({ message: `Delete Recipie ${req.params.id}` });
-});
+/* router.get("/", getRecipie);
+router.post("/", createRecipie);
+router.put("/:id", updateRecipie);
+router.delete("/:id", deleteRecipie); */
 
 module.exports = router;
