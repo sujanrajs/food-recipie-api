@@ -2,16 +2,16 @@ const asyncHandler = require("express-async-handler");
 
 const Recipie = require("../models/recipieModel");
 
-// @desc GET Recipie
-// @route GET /api/recipie
+// @desc GET Recipies
+// @route GET /api/recipies
 // @access Public
-const getRecipie = asyncHandler(async (req, res) => {
-  const recipie = await Recipie.find();
-  res.status(200).json(recipie);
+const getRecipies = asyncHandler(async (req, res) => {
+  const recipies = await Recipie.find();
+  res.status(200).json(recipies);
 });
 
 // @desc Create Recipie
-// @route POST /api/recipie
+// @route POST /api/recipies
 // @access Public
 const createRecipie = asyncHandler(async (req, res) => {
   if (!req.body.name) {
@@ -26,8 +26,8 @@ const createRecipie = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Create Recipie" });
 });
 
-// @desc Update Recipie
-// @route PUT /api/recipie
+// @desc Update Recipies
+// @route PUT /api/recipies/:id
 // @access Public
 const updateRecipie = asyncHandler(async (req, res) => {
   const recipie = await Recipie.findById(req.params.id);
@@ -49,7 +49,7 @@ const updateRecipie = asyncHandler(async (req, res) => {
 });
 
 // @desc Delete Recipie
-// @route DELETE /api/recipie
+// @route DELETE /api/recipies/:id
 // @access Public
 const deleteRecipie = asyncHandler(async (req, res) => {
   const recipie = await Recipie.findById(req.params.id);
@@ -64,4 +64,4 @@ const deleteRecipie = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-module.exports = { getRecipie, createRecipie, updateRecipie, deleteRecipie };
+module.exports = { getRecipies, createRecipie, updateRecipie, deleteRecipie };

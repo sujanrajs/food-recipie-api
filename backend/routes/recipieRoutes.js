@@ -2,13 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const {
-  getRecipie,
+  getRecipies,
   createRecipie,
   updateRecipie,
   deleteRecipie,
 } = require("../controllers/recipieController");
 
-router.route("/").get(getRecipie).post(createRecipie);
+router.route("/").get(getRecipies).post(createRecipie);
 router.route("/:id").put(updateRecipie).delete(deleteRecipie);
 
 /* router.get("/", getRecipie);
