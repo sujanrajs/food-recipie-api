@@ -21,6 +21,8 @@ const createRecipie = asyncHandler(async (req, res) => {
 
   const recipie = await Recipie.create({
     name: req.body.name,
+    description: req.body.description,
+    ingredients: req.body.ingredients,
   });
 
   res.status(200).json({ message: "Create Recipie" });

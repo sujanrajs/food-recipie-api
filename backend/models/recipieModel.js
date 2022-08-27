@@ -4,7 +4,15 @@ const recipieSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please add a text value"],
+      required: [true, "Please add name"],
+    },
+    description: {
+      type: String,
+      required: [true, "Please add description"],
+    },
+    ingredients: {
+      type: Array,
+      required: [true, "Please add ingredients"],
     },
   },
   {
