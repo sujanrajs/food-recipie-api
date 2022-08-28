@@ -4,7 +4,7 @@
 
 ### User can get recipie's name, description and ingredients
 
-## How to executte the project:
+## How to execute the project:
 
 ### Install all the dependencies.
 
