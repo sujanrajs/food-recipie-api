@@ -6,8 +6,13 @@ const Recipie = require("../models/recipieModel");
 // @route GET /api/recipies
 // @access Public
 const getRecipies = asyncHandler(async (req, res) => {
-  const recipies = await Recipie.find();
-  res.status(200).json(recipies);
+  try {
+    const recipies = await Recipie.find();
+    res.status(200).json(recipies);
+  } catch (error) {
+    console.log(error);
+    res.status(400).end();
+  }
 });
 
 // @desc Create Recipie

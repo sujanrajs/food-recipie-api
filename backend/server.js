@@ -1,18 +1,20 @@
 const express = require("express");
-const colors = require("colors");
-const dotenv = require("dotenv").config();
+require("colors");
+require("dotenv").config();
+const { json, urlencoded } = require("body-parser");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
+const recipieRouter = require("./routes/recipieRoutes");
 const port = process.env.PORT || 5000;
 
 connectDB();
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(json());
+app.use(urlencoded({ extended: false }));
 
-app.use("/api/recipies", require("./routes/recipieRoutes"));
+app.use("/api/recipies", recipieRouter);
 
 app.use(errorHandler);
 
