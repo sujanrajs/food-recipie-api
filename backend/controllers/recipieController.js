@@ -11,7 +11,7 @@ const getRecipies = asyncHandler(async (req, res) => {
     res.status(200).json(recipies);
   } catch (error) {
     console.log(error);
-    res.status(400).end();
+    res.status(400).json({ message: "Failed to fetch recipie" });
   }
 });
 
@@ -19,56 +19,49 @@ const getRecipies = asyncHandler(async (req, res) => {
 // @route POST /api/recipies
 // @access Public
 const createRecipie = asyncHandler(async (req, res) => {
-  if (!req.body.name) {
-    res.status(400);
-    throw new Error("Please add a name");
+  try {
+    const recipie = await Recipie.create({
+      name: req.body.name,
+      description: req.body.description,
+      ingredients: req.body.ingredients,
+    });
+    res.status(200).json(recipie);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "Failed to create recipie" });
   }
-
-  const recipie = await Recipie.create({
-    name: req.body.name,
-    description: req.body.description,
-    ingredients: req.body.ingredients,
-  });
-
-  res.status(200).json({ message: "Create Recipie" });
 });
 
 // @desc Update Recipies
 // @route PUT /api/recipies/:id
 // @access Public
 const updateRecipie = asyncHandler(async (req, res) => {
-  const recipie = await Recipie.findById(req.params.id);
-
-  if (!recipie) {
-    res.status(400);
-    throw new Error("Recipie not found");
+  try {
+    const recipie = await Recipie.findById(req.params.id);
+    const updatedRecipie = await Recipie.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      {
+        new: true,
+      }
+    );
+    res.status(200).json(updatedRecipie);
+  } catch {
+    res.status(400).json({ message: "Recipie not found" });
   }
-
-  const updatedRecipie = await Recipie.findByIdAndUpdate(
-    req.params.id,
-    req.body,
-    {
-      new: true,
-    }
-  );
-
-  res.status(200).json(updatedRecipie);
 });
 
 // @desc Delete Recipie
 // @route DELETE /api/recipies/:id
 // @access Public
 const deleteRecipie = asyncHandler(async (req, res) => {
-  const recipie = await Recipie.findById(req.params.id);
-
-  if (!recipie) {
-    res.status(400);
-    throw new Error("Recipie not found");
+  try {
+    const recipie = await Recipie.findById(req.params.id);
+    await recipie.remove();
+    res.status(200).json({ id: req.params.id, message: "Deleted!" });
+  } catch {
+    res.status(400).json({ message: "Recipie not found" });
   }
-
-  await recipie.remove();
-
-  res.status(200).json({ id: req.params.id });
 });
 
 module.exports = { getRecipies, createRecipie, updateRecipie, deleteRecipie };
